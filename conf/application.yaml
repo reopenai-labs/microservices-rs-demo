@@ -1,7 +1,7 @@
 application:
   datasource:
     username: postgres
-    password: postgres
-    host: 127.0.0.1:5432
-    database: test
-    schema: test
+    password: X1hSRDGNFVyQ
+    host: 10.68.48.3:5432
+    database: dev-apple-core
+    schema: symbol

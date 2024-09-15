@@ -5,7 +5,8 @@ mod db;
 use anyhow::Ok;
 pub use config::Environment;
 pub use db::DB;
-use tracing as log;
+
+use crate::log;
 
 pub struct Context {
     environment: Environment,

@@ -3,18 +3,20 @@ use tokio::signal;
 
 pub mod api;
 pub mod appctx;
-pub mod service;
 pub mod errors;
+pub mod log;
+pub mod service;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    tracing_subscriber::fmt::init();
+    log::init();
     let ctx = appctx::Context::new_static_from_path("conf/application.yaml").await?;
     let port = ctx
         .get_environment()
         .get_string("server.port")
         .unwrap_or("8000".to_string());
     let app = axum::Router::new().merge(api::markets(ctx));
+    let app = log::axum_tracing_layer(app);
     let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:{port}")).await?;
     axum::serve(listener, app)
         .with_graceful_shutdown(shutdown_signal())
