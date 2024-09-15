@@ -1,0 +1,7 @@
+application:
+  datasource:
+    username: postgres
+    password: postgres
+    host: 127.0.0.1:5432
+    database: test
+    schema: test
